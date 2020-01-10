@@ -1,0 +1,26 @@
+서버와 임시 클라이언트를 실행 시키고 이를 테스트 하는 방법
+
+1. 필요하다면 aivis.server.ServerMain의 16번째줄에 있는 port 번호 수정하기 (기본값 8888)
+
+2. 필요하다면 aivis.client.ClientMain의 14번째줄에 있는 server 주소와 16번째줄에 있는 server port 번호 수정하기 (기본값 127.0.0.1, 8888)
+
+3. class 파일 생성
+최상위 폴더에서 아래 2개의 명령어 입력
+javac -cp .\server\src -cp .\common\src -d .\server\bin .\server\src\aivis_server\*.java .\server\src\aivis_server\machinelearning\*.java .\common\src\aivis_common\*.java -encoding UTF-8
+javac -cp .\client\src -cp .\common\src -d .\client_tmp\bin .\client_tmp\src\aivis_client_tmp\*.java .\common\src\aivis_common\*.java -encoding UTF-8
+
+4. Server 실행
+server/bin 폴더로 이동 후 아래 명령어 입력
+java -cp . aivis_server.ServerMain
+
+5. Server 학습 시키기
+Server 실행 상태에서 아래 명령어 입력
+train
+
+6. Test용 Client 실행
+client/bin 폴더로 이동 후 아래 명령어 입력
+java -cp . aivis_client_tmp.ClientMain
+
+7. Server 종료 시키기
+Server 실행 상태에서 아래 명령어 입력
+shutdown
