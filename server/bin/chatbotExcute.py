@@ -24,8 +24,8 @@ bot = ChatBot(
 )
 
 
-fKeywords = open('./data/keywords.txt', 'r', encoding='UTF-8')
-fQuestions = open('./data/questions.txt', 'w', encoding='UTF-8')
+fKeywords = open('../data/keywords.txt', 'r', encoding='UTF-8')
+fQuestions = open('../data/questions.txt', 'w', encoding='UTF-8')
 
 keywords = fKeywords.readlines()
 

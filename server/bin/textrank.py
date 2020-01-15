@@ -128,9 +128,9 @@ class TextRank(object):
 #open a data file
 #opne a keyword file
 #opne a summarize file
-fData = open('./data/data.txt', 'r', encoding='UTF-8')
-fKeywords = open('./data/keywords.txt', 'w', encoding='UTF-8')
-fSummarize = open('./data/summarize.txt', 'w', encoding='UTF-8')
+fData = open('../data/data.txt', 'r', encoding='UTF-8')
+fKeywords = open('../data/keywords.txt', 'w', encoding='UTF-8')
+fSummarize = open('../data/summarize.txt', 'w', encoding='UTF-8')
 
 #read text in data file
 data = fData.read()
