@@ -6,12 +6,12 @@
 
 3. class 파일 생성
 src 폴더에서 아래 2개의 명령어 입력
-javac -cp . -d ..\server\bin .\aivis\server\*.java .\aivis\machinelearning\*.java .\aivis\common\*.java -encoding UTF-8
-javac -cp . -d ..\client_tmp\bin .\aivis\client_tmp\*.java .\aivis\common\*.java -encoding UTF-8
+javac -cp "." -d "..\server\bin" -encoding "UTF-8" .\aivis\server\*.java .\aivis\machinelearning\*.java .\aivis\databasemanager\*.java .\aivis\common\*.java
+javac -cp "." -d "..\client_tmp\bin"  -encoding "UTF-8" .\aivis\client_tmp\*.java .\aivis\common\*.java
 
 4. Server 실행
 server/bin 폴더로 이동 후 아래 명령어 입력
-java -cp . aivis.server.ServerMain
+java -cp ".;..\lib\mysql-connector-java-8.0.19.jar" aivis.server.ServerMain
 
 5. Server 학습 시키기
 Server 실행 상태에서 아래 명령어 입력
