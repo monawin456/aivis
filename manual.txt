@@ -24,3 +24,16 @@ java -cp . aivis.client_tmp.ClientMain_tmp
 7. Server 종료 시키기
 Server 실행 상태에서 아래 명령어 입력
 shutdown
+
+* DB 접속 방법
+관리자 접속 : mysql -u admin -p -h "엔드포인트"
+password : "password"
+
+- DB 목록 보기
+show databases;
+
+- 특정DB 사용 설정
+use DBNAME;
+
+- table 목록 보기
+show tables;

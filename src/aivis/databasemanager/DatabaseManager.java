@@ -62,7 +62,7 @@ public class DatabaseManager {
         resultSet = null;
 
         String sql;
-        sql = "SELECT * FROM User_Info WHERE uID = '"+uID+"'";
+        sql = "SELECT * FROM User_Info WHERE uID = '"+uID+"';";
 
         try {
             connection = DriverManager.getConnection(DB_URL, USER_NAME, USER_PASSWORD);
