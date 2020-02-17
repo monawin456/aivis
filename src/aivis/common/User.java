@@ -38,7 +38,7 @@ public class User {
         this.databaseInfo = databaseInfo;
     }
 
-    public void insertUser() {
+    public void DBInsert() {
         Connection connection;
         connection = null;
         Statement statement;
@@ -69,11 +69,11 @@ public class User {
             }
         }
         else {
-            System.out.println("Null User Error");
+            System.out.println("Null Data Error");
         }
     }
 
-    public void readUser(String uID) {
+    public void DBRead(String uID) {
         Connection connection;
         connection = null;
         Statement statement;
@@ -91,7 +91,7 @@ public class User {
                 resultSet = statement.executeQuery(sql);
 
                 resultSet.next();
-                this.uID = uID;
+                this.uID = resultSet.getString("uID");
                 this.Password = resultSet.getString("Password");
                 this.uName = resultSet.getString("uName");
                 this.uEmail = resultSet.getString("uEmail");
@@ -109,11 +109,11 @@ public class User {
             }
         }
         else {
-            System.out.println("Null User Error");
+            System.out.println("Null Data Error");
         }
     }
 
-    public void updateUser() {
+    public void DBUpdate() {
         Connection connection;
         connection = null;
         Statement statement;
@@ -144,11 +144,11 @@ public class User {
             }
         }
         else {
-            System.out.println("Null User Error");
+            System.out.println("Null Data Error");
         }
     }
 
-    public void deleteUser() {
+    public void DBDelete() {
         Connection connection;
         connection = null;
         Statement statement;
@@ -181,7 +181,7 @@ public class User {
             }
         }
         else {
-            System.out.println("Null User Error");
+            System.out.println("Null Data Error");
         }
     }
 }
