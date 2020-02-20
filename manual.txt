@@ -12,6 +12,8 @@ javac -cp "." -d "..\client_tmp\bin"  -encoding "UTF-8" .\aivis\client_tmp\*.jav
 4. Server 실행
 server/bin 폴더로 이동 후 아래 명령어 입력
 java -cp ".;..\lib\mysql-connector-java-8.0.19.jar" aivis.server.ServerMain
+or
+java -cp ".:..\lib\mysql-connector-java-8.0.19.jar" aivis.server.ServerMain
 
 5. Server 학습 시키기
 Server 실행 상태에서 아래 명령어 입력
