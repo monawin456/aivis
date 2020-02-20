@@ -34,7 +34,7 @@ public class Shell implements Runnable{
                 dbtest();
             }
             else {
-                System.out.print("Wrong Command");
+                System.out.println("Wrong Command");
             }
 
             command = null;
