@@ -6,7 +6,7 @@
 
 3. class 파일 생성
 src 폴더에서 아래 2개의 명령어 입력
-javac -cp "." -d "..\server\bin" -encoding "UTF-8" .\aivis\server\*.java .\aivis\machinelearning\*.java .\aivis\databasemanager\*.java .\aivis\common\*.java
+javac -cp "." -d "..\server\bin" -encoding "UTF-8" .\aivis\server\*.java .\aivis\machinelearning\*.java .\aivis\database\*.java .\aivis\common\*.java
 javac -cp "." -d "..\client_tmp\bin"  -encoding "UTF-8" .\aivis\client_tmp\*.java .\aivis\common\*.java
 
 4. Server 실행
