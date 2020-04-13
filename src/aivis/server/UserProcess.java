@@ -12,6 +12,7 @@ public class UserProcess implements Runnable {
     private Socket socket;
     private ServerMain serverMain;
     private FileManager fileManager;
+    private int id;
 
     public UserProcess(ServerMain serverMain, Socket socket) throws Exception
     {
@@ -28,6 +29,7 @@ public class UserProcess implements Runnable {
         {
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
+            id = serverMain.userProcesses.indexOf(this);
             while(true)
             {
                 System.out.println("Wait Client's Request");
@@ -80,6 +82,10 @@ public class UserProcess implements Runnable {
         } finally {
             try { dos.close(); } catch (IOException e) { e.printStackTrace(); }
             try { dis.close(); } catch (IOException e) { e.printStackTrace(); }
-        }       
+            try { socket.close(); } catch (IOException e) { e.printStackTrace(); }
+
+            serverMain.psUsed[id] = 0;
+            serverMain.userProcesses.remove(this);
+        }
     }
 }
