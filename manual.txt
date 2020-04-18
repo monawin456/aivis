@@ -5,15 +5,15 @@
 2. 필요하다면 aivis.client_tmp.ClientMain_tmp의 14번째줄에 있는 server 주소와 16번째줄에 있는 server port 번호 수정하기 (기본값 127.0.0.1, 8888)
 
 3. class 파일 생성
-src 폴더에서 아래 2개의 명령어 입력
-javac -cp "." -d "..\server\bin" -encoding "UTF-8" .\aivis\server\*.java .\aivis\machinelearning\*.java .\aivis\database\*.java .\aivis\common\*.java
-javac -cp "." -d "..\client_tmp\bin"  -encoding "UTF-8" .\aivis\client_tmp\*.java .\aivis\common\*.java
+server와 client_tmp 폴더의 src 폴더에서 아래 2개의 명령어 입력
+[server/src]
+javac -cp "." -d "..\bin" -encoding "UTF-8" .\aivis\server\*.java .\aivis\machinelearning\*.java .\aivis\database\*.java .\aivis\common\*.java
+[client_tmp/src]
+javac -cp "." -d "..\bin"  -encoding "UTF-8" .\aivis\client_tmp\*.java .\aivis\database\*.java .\aivis\common\*.java
 
 4. Server 실행
 server/bin 폴더로 이동 후 아래 명령어 입력
-java -cp ".;..\lib\mysql-connector-java-8.0.19.jar" aivis.server.ServerMain
-or
-java -cp ".:../lib/mysql-connector-java-8.0.19.jar" aivis.server.ServerMain
+java -cp "." aivis.server.ServerMain
 
 5. Server 학습 시키기
 Server 실행 상태에서 아래 명령어 입력
@@ -21,7 +21,7 @@ train
 
 6. Test용 Client 실행
 client/bin 폴더로 이동 후 아래 명령어 입력
-java -cp . aivis.client_tmp.ClientMain_tmp
+java -cp "." aivis.client_tmp.ClientMain_tmp
 
 7. Server 종료 시키기
 Server 실행 상태에서 아래 명령어 입력
