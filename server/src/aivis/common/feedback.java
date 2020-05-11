@@ -59,7 +59,8 @@ public class feedback {
             sql = "INSERT INTO feedback VALUES ('"+Interview_Number+"',"+rank+","+face+","+eye+","+voice_speed+","+voice_tone+");";
             
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
@@ -96,7 +97,8 @@ public class feedback {
             sql = "SELECT * FROM feedback WHERE Interview_Number = '"+Interview_Number+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
@@ -140,7 +142,8 @@ public class feedback {
             sql = "UPDATE feedback SET rank = "+rank+", face = "+face+", eye = "+eye+", voice_speed = "+voice_speed+", voice_tone = "+voice_tone+" WHERE Interview_Number = '"+Interview_Number+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
@@ -177,7 +180,8 @@ public class feedback {
             sql = "DELETE feedback WHERE Interview_Number = '"+Interview_Number+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 

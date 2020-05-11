@@ -55,7 +55,8 @@ public class SelfIntroDoc {
             sql = "INSERT INTO SelfIntroDoc VALUES (?, ?, ?)";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 pStatement = connection.prepareStatement(sql);
                 file = new File(Document);
                 fis = new FileInputStream(file);
@@ -103,7 +104,8 @@ public class SelfIntroDoc {
             sql = "SELECT * FROM SelfIntroDoc WHERE DocID = ?";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 pStatement = connection.prepareStatement(sql);
                 file = new File(Document);
                 fos = new FileOutputStream(file);
@@ -161,7 +163,8 @@ public class SelfIntroDoc {
             "WHERE DocID = ?";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 pStatement = connection.prepareStatement(sql);
                 file = new File(Document);
                 fis = new FileInputStream(file);
@@ -203,7 +206,8 @@ public class SelfIntroDoc {
             sql = "DELETE SelfIntroDoc WHERE DocID = '"+DocID+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
