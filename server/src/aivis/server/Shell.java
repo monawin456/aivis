@@ -67,14 +67,20 @@ public class Shell implements Runnable{
         System.out.println("Start");
 
         String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "database-1.ch64zhsomskg.ap-northeast-2.rds.amazonaws.com";
-        String USER_NAME = "admin";
-        String USER_PASSWORD = "wearewelit";
+        String DB_URL = "";
+        String USER_NAME = "";
+        String USER_PASSWORD = "";
 
-        DatabaseInfo databaseInfo = new DatabaseInfo(JDBC_DRIVER, DB_URL, USER_NAME, USER_PASSWORD);
+        String hostname;
+        String port;
+        String dbName;
+        String userName;
+        String password;
+
+        DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
 
         String uID = "0001";
-        String Password = "1234";
+        String Password = "1111";
         String uName = "tester01";
         String uEmail = "tester01@abc.d";
 

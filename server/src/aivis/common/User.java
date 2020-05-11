@@ -51,7 +51,8 @@ public class User {
             sql = "INSERT INTO User_Info VALUES ('"+uID+"','"+Password+"','"+uName+"','"+uEmail+"');";
             
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
@@ -86,7 +87,8 @@ public class User {
             sql = "SELECT * FROM User_Info WHERE uID = '"+uID+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
@@ -126,7 +128,8 @@ public class User {
             sql = "UPDATE User_Info SET Password = '"+Password+"', uName = '"+uName+"', uEmail = '"+uEmail+"' WHERE uID = '"+uID+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
@@ -161,7 +164,8 @@ public class User {
             sql = "DELETE User_Info WHERE uID = '"+uID+"';";
 
             try {
-                connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
+                connection = DriverManager.getConnection(databaseInfo.connectionString);
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
 
