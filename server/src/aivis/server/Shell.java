@@ -66,16 +66,16 @@ public class Shell implements Runnable{
     private void dbtest(){
         System.out.println("Start");
 
-        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "";
-        String USER_NAME = "";
-        String USER_PASSWORD = "";
+        // String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        // String DB_URL = "";
+        // String USER_NAME = "";
+        // String USER_PASSWORD = "";
 
-        String hostname;
-        String port;
-        String dbName;
-        String userName;
-        String password;
+        String hostname = "";
+        String port = "";
+        String dbName = "";
+        String userName = "";
+        String password = "";
 
         DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
 
