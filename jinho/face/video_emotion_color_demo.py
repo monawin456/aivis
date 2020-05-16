@@ -32,7 +32,7 @@ emotion_target_size = emotion_classifier.input_shape[1:3]
 emotion_window = []
 
 # starting video streaming
-cv2.namedWindow('window_frame')
+# cv2.namedWindow('window_frame')
 video_capture = cv2.VideoCapture("face_video.mp4")
 
 emotion_count = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -110,7 +110,7 @@ while True:
                   color, 0, -45, 1, 1)
 
     bgr_image = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2BGR)
-    cv2.imshow('window_frame', bgr_image)
+#   cv2.imshow('window_frame', bgr_image)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
