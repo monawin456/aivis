@@ -45,7 +45,7 @@ while True:
         break
     else:
         height, width, channel = bgr_image.shape
-        matrix = cv2.getRotationMatrix2D((width / 2, height / 2), -90, 1)
+        matrix = cv2.getRotationMatrix2D((width / 2, height / 2), 0, 1)
         bgr_image = cv2.warpAffine(bgr_image, matrix, (width, height))
 
     gray_image = cv2.cvtColor(bgr_image, cv2.COLOR_BGR2GRAY)
