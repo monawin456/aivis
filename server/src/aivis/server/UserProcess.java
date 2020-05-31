@@ -38,38 +38,34 @@ public class UserProcess implements Runnable {
                 System.out.println("Recieve Request: " + msg);
 
                 if(msg.compareTo("question") == 0){
-                    System.out.println("Send Server State: " + serverMain.state);
+                    System.out.println("Start Create Question");
 
-                    if(serverMain.state.compareTo("t") == 0){
-                        dos.writeUTF("t");
-                        dos.flush();
+                    Textrank textrank = new Textrank();
+                    Chatbot chatbot = new Chatbot();
 
-                        System.out.println("Start Create Question");
+                    System.out.println("Start Textrank");
+                    textrank.createTextrank();
+                    System.out.println("End Textrank");
 
-                        Textrank textrank = new Textrank();
-                        Chatbot chatbot = new Chatbot();
+                    System.out.println("Start Keyword Matching");
+                    chatbot.excuteChatbot();
+                    System.out.println("End Keyword Matching");
 
-                        System.out.println("Start Textrank");
-                        textrank.createTextrank();
-                        System.out.println("End Textrank");
+                    System.out.println("End Create Question");
+                    
+                    System.out.println("Send Question Data to Client");
+                    fileManager.send(dos, "../data", "questions.txt");
+                }
+                else if(msg.compareTo("video") == 0){
+                    System.out.println("Start Video Analysis");
 
-                        System.out.println("Start Keyword Matching");
-                        chatbot.excuteChatbot();
-                        System.out.println("End Keyword Matching");
+                    EyeChecker eyeChecker = new EyeChecker();
+                    EmotionChecker emotionChecker = new EmotionChecker();
 
-                        System.out.println("End Create Question");
-                        
-                        System.out.println("Send Question Data to Client");
-                        fileManager.send(dos, "../data", "questions.txt");
-                    }
-                    else if(serverMain.state.compareTo("f") == 0){
-                        dos.writeUTF("f");
-                        dos.flush();
-                    }
-                    else if(serverMain.state.compareTo("n") == 0){
-                        dos.writeUTF("n");
-                        dos.flush();
-                    }
+                    eyeChecker.excute();
+                    emotionChecker.excute();
+
+                    System.out.println("End Video Analysis");
                 }
                 else if(msg.compareTo("upload") == 0){
                     System.out.println("Recieve Self Introduction Document Data");

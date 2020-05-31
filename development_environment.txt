@@ -55,14 +55,31 @@ pip3 install konlpy
 **scikit-learn 설치
 pip3 install scikit-learn
 
+**opencv
+pip3 install opencv-python
+
+**tensorflow
+pip3 install tensorflow
+
+**keras
+pip3 install keras==2.0.5
+
+**dlib
+pip3 install https://files.pythonhosted.org/packages/0e/ce/f8a3cff33ac03a8219768f0694c5d703c8e037e6aba2e865f9bae22ed63c/dlib-19.8.1-cp36-cp36m-win_amd64.whl#sha256=794994fa2c54e7776659fddb148363a5556468a6d5d46be8dad311722d54bfcf
+
 **ChatterBot 을 위한 패키지들
-pip3 install spacy<br>
-pip3 install pytz<br>
-pip3 install pint<br>
-pip3 install mathparse<br>
-pip3 install sqlalchemy<br>
-pip3 install nltk<br>
-pip3 install date_parser<br><br>
+pip3 install spacy
+pip3 install mathparse
+pip3 install sqlalchemy
+pip3 install nltk
+pip3 install date_parser
+
+**EmotionChecker 을 위한 패키지
+pip3 install pandas
+pip3 install numpy
+pip3 install h5py
+pip3 install statistics
+pip3 install scipy==1.4.1
 
 
 

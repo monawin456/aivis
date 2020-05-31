@@ -10,8 +10,8 @@ public class Textrank {
 
     public Textrank(){
         runtime = Runtime.getRuntime();
-        //command = new String[]{"python", ".\\textrank.py"}; // for windows
-        command = new String[]{"python3", "./textrank.py"}; // for linux
+        command = new String[]{"python", ".\\textrank.py"}; // for windows
+        //command = new String[]{"python3", "./textrank.py"}; // for linux
     }
 
     public void createTextrank(){

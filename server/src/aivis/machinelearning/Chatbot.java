@@ -11,10 +11,10 @@ public class Chatbot {
 
     public Chatbot(){
         runtime = Runtime.getRuntime();
-        //trainCommand = new String[]{"python", ".\\chatbotTrain.py"}; // for windows
-        trainCommand = new String[]{"python3", "./chatbotTrain.py"}; // for linux
-        //excuteCommand = new String[]{"python", ".\\chatbotExcute.py"}; // for windows
-        excuteCommand = new String[]{"python3", "./chatbotExcute.py"}; // for linux
+        trainCommand = new String[]{"python", ".\\chatbotTrain.py"}; // for windows
+        //trainCommand = new String[]{"python3", "./chatbotTrain.py"}; // for linux
+        excuteCommand = new String[]{"python", ".\\chatbotExcute.py"}; // for windows
+        //excuteCommand = new String[]{"python3", "./chatbotExcute.py"}; // for linux
     }
 
     public void trainChatbot(){

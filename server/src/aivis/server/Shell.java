@@ -21,7 +21,14 @@ public class Shell implements Runnable{
             System.out.print("Input your command: ");
             command = scanner.nextLine();
 
-            if(command.compareTo("shutdown") == 0){
+            if(command.compareTo("help") == 0){
+                System.out.println("shutdown");
+                System.out.println("usercount");
+                System.out.println("train");
+                System.out.println("dbtest");
+                System.out.println("videotest");
+            }
+            else if(command.compareTo("shutdown") == 0){
                 shutDown();
             }
             else if (command.compareTo("usercount") == 0){
@@ -32,6 +39,9 @@ public class Shell implements Runnable{
             }
             else if (command.compareTo("dbtest") == 0){
                 dbtest();
+            }
+            else if (command.compareTo("videotest") == 0){
+                videotest();
             }
             else {
                 System.out.println("Wrong Command");
@@ -57,7 +67,6 @@ public class Shell implements Runnable{
 
         System.out.println("Start Train");
 
-        // remove DB
         chatbot.trainChatbot();
 
         System.out.println("End Train");
@@ -65,11 +74,6 @@ public class Shell implements Runnable{
 
     private void dbtest(){
         System.out.println("Start");
-
-        // String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        // String DB_URL = "";
-        // String USER_NAME = "";
-        // String USER_PASSWORD = "";
 
         String hostname = "";
         String port = "";
@@ -89,5 +93,17 @@ public class Shell implements Runnable{
         testUser.DBInsert();
 
         System.out.println("End");
+    }
+
+    private void videotest(){
+        System.out.println("Start Video Analysis Test");
+
+        EyeChecker eyeChecker = new EyeChecker();
+        EmotionChecker emotionChecker = new EmotionChecker();
+
+        eyeChecker.excute();
+        emotionChecker.excute();
+
+        System.out.println("End Video Analysis Test");
     }
 }
