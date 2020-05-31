@@ -36,15 +36,63 @@ java -cp "." aivis.client_tmp.ClientMain_tmp
 Server 실행 상태에서 아래 명령어 입력
 shutdown
 
-* DB 접속 방법
+
+
+
+DB 설명서
+
+- DB 접속
 관리자 접속 : mysql -u admin -p -h "엔드포인트"
 password : "password"
+
+- DB 생성
+create database aivis;
 
 - DB 목록 보기
 show databases;
 
-- 특정DB 사용 설정
+- 특정 DB 사용
 use DBNAME;
 
 - table 목록 보기
 show tables;
+
+- 테이블 생성
+CREATE TABLE `user_info` (
+  `uID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Password` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `uName` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `uEmail` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`uID`)
+);
+CREATE TABLE `Self_Intro_Doc` (
+  `uID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `DocID` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `Document` blob,
+  PRIMARY KEY (`DocID`),
+  KEY `uID` (`uID`),
+  CONSTRAINT `Self_Intro_Doc_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `user_info` (`uID`)
+);
+CREATE TABLE `Interview` (
+  `uID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Interview_Number` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `Video` blob NOT NULL,
+  `DocID` varchar(128) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`Interview_Number`),
+  KEY `uID` (`uID`),
+  KEY `DocID` (`DocID`),
+  CONSTRAINT `Interview_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `user_info` (`uID`),
+  CONSTRAINT `Interview_ibfk_2` FOREIGN KEY (`DocID`) REFERENCES `Self_Intro_Doc` (`DocID`)
+);
+CREATE TABLE `Evaluation` (
+  `Interview_Number` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `Eye` int(11) DEFAULT NULL,
+  `Face` int(11) DEFAULT NULL,
+  `Voice_Speed` int(11) DEFAULT NULL,
+  `Voice_Tone` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Interview_Number`),
+  CONSTRAINT `Evaluation_ibfk_1` FOREIGN KEY (`Interview_Number`) REFERENCES `Interview` (`Interview_Number`)
+);
+
+
+
