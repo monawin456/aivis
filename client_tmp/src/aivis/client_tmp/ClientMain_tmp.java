@@ -44,11 +44,20 @@ public class ClientMain_tmp {
             dos.writeUTF("admin");
             dos.writeUTF("1234");
             dos.flush();
+            String pass;
+            pass = dis.readUTF();
+            if(pass.compareTo("valid") == 0){
+                System.out.println("Valid");
+            }
+            else if(pass.compareTo("fail") == 0){
+                System.out.println("Fail");
+            }
 
             // wait time
             System.out.println("If you want continue press any key");
             scanner.nextLine();
 
+            // upload
 			System.out.println("Send Request: upload");
 			dos.writeUTF("upload");
             dos.flush();
@@ -59,26 +68,24 @@ public class ClientMain_tmp {
             System.out.println("If you want continue press any key");
             scanner.nextLine();
 
-            // recieve question
-            System.out.println("Send Request: question");
-            dos.writeUTF("question");
+            // question
+			System.out.println("Send Request: question");
+			dos.writeUTF("question");
             dos.flush();
-            isAvailable = dis.readUTF();
-            System.out.println("Receive Server State: " + isAvailable);
-            if(isAvailable.compareTo("f") == 0) {
-				System.out.println("sorry, server is working for learning");
-			}
-			else if(isAvailable.compareTo("n") == 0) {
-				System.out.println("sorry, file is not found");
-            }
-            else if(isAvailable.compareTo("t") == 0) {
-                System.out.println("Receive Question Data");
-                fileManager.recieve(dis, "../data", "questions.txt");
+            System.out.println("Recieve Question");
+            fileManager.recieve(dis, "../data", "questions.txt");
 
-                // print questions.txt
-                System.out.println("Questions Content:");
-                fileManager.printText("../data", "questions.txt");
-            }
+            // wait time
+            System.out.println("If you want continue press any key");
+            scanner.nextLine();
+
+            // video
+			System.out.println("Send Request: video");
+			dos.writeUTF("video");
+            dos.flush();
+            System.out.println("Recieve Evaluation");
+            fileManager.recieve(dis, "../data", "eye.txt");
+            fileManager.recieve(dis, "../data", "emotion.txt");
         }catch(Exception e) {
             System.out.println("socket error occure");
             e.printStackTrace();

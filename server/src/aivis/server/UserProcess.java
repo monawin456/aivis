@@ -55,7 +55,9 @@ public class UserProcess implements Runnable {
 
                 user.DBRead(uID);
 
-                if(user.uID == null){
+                if((user.uID == null) || (user.Password.compareTo(Password) != 0)){
+                    System.out.println(user.uID);
+                    System.out.println(user.Password);
                     dos.writeUTF("fail");
                     dos.flush();
                 }
@@ -71,24 +73,7 @@ public class UserProcess implements Runnable {
                 String msg = dis.readUTF();
 
                 System.out.println("Recieve Request: " + msg);
-
-                if(msg.compareTo("login") == 0){
-                    String uID = dis.readUTF();
-                    String Password = dis.readUTF();
-
-                    user.DBRead(uID);
-
-                    if(user.uID == null){
-                        dos.writeUTF("fail");
-                        dos.flush();
-                        break;
-                    }
-                    else{
-                        dos.writeUTF("valid");
-                        dos.flush();
-                    }
-                }
-
+                
                 if(msg.compareTo("question") == 0){
                     System.out.println("Start Create Question");
 
@@ -124,7 +109,7 @@ public class UserProcess implements Runnable {
                     System.out.println("Recieve Self Introduction Document Data");
                     fileManager.recieve(dis, "../data", "data.txt");
                     introDoc.uID = user.uID;
-                    introDoc.Document = "../data/data.txt".
+                    introDoc.Document = "../data/data.txt";
                     introDoc.DBInsert();
                 }
             }

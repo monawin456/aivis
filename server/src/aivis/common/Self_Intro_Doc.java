@@ -12,13 +12,13 @@ import aivis.database.DatabaseInfo;
 
 public class Self_Intro_Doc {
     public String uID;
-    public String DocID;
+    public int DocID;
     public String Document;
     public DatabaseInfo databaseInfo;
 
     public Self_Intro_Doc() {
         this.uID = null;
-        this.DocID = null;
+        this.DocID = 0;
         this.Document = null;
 
         this.databaseInfo = null;
@@ -26,13 +26,13 @@ public class Self_Intro_Doc {
 
     public Self_Intro_Doc(DatabaseInfo databaseInfo) {
         this.uID = null;
-        this.DocID = null;
+        this.DocID = 0;
         this.Document = null;
 
         this.databaseInfo = databaseInfo;
     }
 
-    public Self_Intro_Doc(String uID, String DocID, String filePath) {
+    public Self_Intro_Doc(String uID, int DocID, String filePath) {
         this.uID = uID;
         this.DocID = DocID;
         this.Document = filePath;
@@ -40,7 +40,7 @@ public class Self_Intro_Doc {
         this.databaseInfo = null;
     }
 
-    public Self_Intro_Doc(String uID, String DocID, String filePath, DatabaseInfo databaseInfo) {
+    public Self_Intro_Doc(String uID, int DocID, String filePath, DatabaseInfo databaseInfo) {
         this.uID = uID;
         this.DocID = DocID;
         this.Document = filePath;
@@ -58,9 +58,9 @@ public class Self_Intro_Doc {
         FileInputStream fis;
         fis = null;
 
-        if (DocID != null && databaseInfo != null) {
+        if (DocID != 0 && databaseInfo != null) {
             String sql;
-            sql = "INSERT INTO Self_Intro_Doc VALUES (?, ?, ?)";
+            sql = "INSERT INTO Self_Intro_Doc(uID, Document) VALUES (?, ?)";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
@@ -71,8 +71,7 @@ public class Self_Intro_Doc {
                 fis = new FileInputStream(file);
 
                 pStatement.setString(1, uID);
-                pStatement.setString(2, DocID);
-                pStatement.setBinaryStream(3, fis);
+                pStatement.setBinaryStream(2, fis);
 
                 pStatement.executeUpdate();
 
@@ -94,7 +93,7 @@ public class Self_Intro_Doc {
         }
     }
 
-    public void DBRead(String DocID, String filePath) {
+    public void DBRead(int DocID, String filePath) {
         Connection connection;
         connection = null;
         PreparedStatement pStatement;
@@ -121,13 +120,13 @@ public class Self_Intro_Doc {
                 file = new File(Document);
                 fos = new FileOutputStream(file);
 
-                pStatement.setString(1, DocID);
+                pStatement.setInt(1, DocID);
 
                 resultSet = pStatement.executeQuery();
 
                 resultSet.next();
                 this.uID = resultSet.getString("uID");
-                this.DocID = resultSet.getString("DocID");
+                this.DocID = resultSet.getInt("DocID");
                 input = resultSet.getBinaryStream("Document");
                 byte[] buffer = new byte[1024];
                 while (input.read(buffer) > 0) {
@@ -165,7 +164,7 @@ public class Self_Intro_Doc {
         FileInputStream fis;
         fis = null;
 
-        if (DocID != null && databaseInfo != null) {
+        if (DocID != 0 && databaseInfo != null) {
             String sql;
             sql =
             "UPDATE Self_Intro_Doc SET "+
@@ -183,7 +182,7 @@ public class Self_Intro_Doc {
 
                 pStatement.setString(1, uID);
                 pStatement.setBinaryStream(2, fis);
-                pStatement.setString(3, DocID);
+                pStatement.setInt(3, DocID);
 
                 pStatement.executeUpdate();
 
@@ -211,7 +210,7 @@ public class Self_Intro_Doc {
         PreparedStatement pStatement;
         pStatement = null;
 
-        if(DocID != null && databaseInfo != null) {
+        if(DocID != 0 && databaseInfo != null) {
             String sql;
             sql = "DELETE Self_Intro_Doc WHERE DocID = ?";
 
@@ -221,10 +220,10 @@ public class Self_Intro_Doc {
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
 
-                pStatement.setString(1, DocID);
+                pStatement.setInt(1, DocID);
 
                 uID = null;
-                DocID = null;
+                DocID = 0;
                 Document = null;
 
                 System.out.println("Deleted");

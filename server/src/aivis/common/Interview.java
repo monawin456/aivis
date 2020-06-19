@@ -12,14 +12,14 @@ import aivis.database.DatabaseInfo;
 
 public class Interview {
     public String uID;
-    public String DocID;
+    public int DocID;
     public String Interview_Number;
     public String Video;
     public DatabaseInfo databaseInfo;
 
     public Interview() {
         this.uID = null;
-        this.DocID = null;
+        this.DocID = 0;
         this.Interview_Number = null;
         this.Video = null;
 
@@ -28,14 +28,14 @@ public class Interview {
 
     public Interview(DatabaseInfo databaseInfo) {
         this.uID = null;
-        this.DocID = null;
+        this.DocID = 0;
         this.Interview_Number = null;
         this.Video = null;
 
         this.databaseInfo = databaseInfo;
     }
 
-    public Interview(String uID, String DocID, String Interview_Number, String filePath) {
+    public Interview(String uID, int DocID, String Interview_Number, String filePath) {
         this.uID = uID;
         this.DocID = DocID;
         this.Interview_Number = Interview_Number;
@@ -44,7 +44,7 @@ public class Interview {
         this.databaseInfo = null;
     }
 
-    public Interview(String uID, String DocID, String Interview_Number, String filePath, DatabaseInfo databaseInfo) {
+    public Interview(String uID, int DocID, String Interview_Number, String filePath, DatabaseInfo databaseInfo) {
         this.uID = uID;
         this.DocID = DocID;
         this.Interview_Number = Interview_Number;
@@ -65,7 +65,7 @@ public class Interview {
 
         if (Interview_Number != null && databaseInfo != null) {
             String sql;
-            sql = "INSERT INTO Interview VALUES (?, ?, ?, ?)";
+            sql = "INSERT INTO Interview(uID, Video, DocID) VALUES (?, ?, ?)";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
@@ -76,9 +76,8 @@ public class Interview {
                 fis = new FileInputStream(file);
 
                 pStatement.setString(1, uID);
-                pStatement.setString(2, DocID);
-                pStatement.setString(3, Interview_Number);
-                pStatement.setBinaryStream(4, fis);
+                pStatement.setBinaryStream(2, fis);
+                pStatement.setInt(3, DocID);
 
                 pStatement.executeUpdate();
 
@@ -134,7 +133,7 @@ public class Interview {
 
                 resultSet.next();
                 this.uID = resultSet.getString("uID");
-                this.DocID = resultSet.getString("DocID");
+                this.DocID = resultSet.getInt("DocID");
                 this.Interview_Number = resultSet.getString("Interview_Number");
                 input = resultSet.getBinaryStream("Video");
                 byte[] buffer = new byte[1024];
@@ -192,7 +191,7 @@ public class Interview {
                 fis = new FileInputStream(file);
 
                 pStatement.setString(1, uID);
-                pStatement.setString(2, DocID);
+                pStatement.setInt(2, DocID);
                 pStatement.setBinaryStream(3, fis);
                 pStatement.setString(4, Interview_Number);
 
@@ -236,7 +235,7 @@ public class Interview {
                 pStatement.setString(1, Interview_Number);
 
                 uID = null;
-                DocID = null;
+                DocID = 0;
                 Interview_Number = null;
                 Video = null;
 

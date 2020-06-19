@@ -26,7 +26,6 @@ public class Shell implements Runnable{
                 System.out.println("shutdown");
                 System.out.println("usercount");
                 System.out.println("train");
-                System.out.println("dbtest");
                 System.out.println("videotest");
             }
             else if(command.compareTo("shutdown") == 0){
@@ -37,9 +36,6 @@ public class Shell implements Runnable{
             }
             else if (command.compareTo("train") == 0){
                 train();
-            }
-            else if (command.compareTo("dbtest") == 0){
-                dbtest();
             }
             else if (command.compareTo("videotest") == 0){
                 videotest();
@@ -71,32 +67,6 @@ public class Shell implements Runnable{
         chatbot.trainChatbot();
 
         System.out.println("End Train");
-    }
-
-    private void dbtest(){
-        System.out.println("Start");
-
-        String hostname = "localhost";
-        String port = "3306";
-        String dbName = "aivis";
-        String userName = "admin";
-        String password = "1+1=mysql";
-
-        DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
-
-        if(databaseInfo.jdbcUrl != null){
-            String DocID = "0001";
-            String filePath = "../data/data.txt";
-
-            Self_Intro_Doc introDoc = new Self_Intro_Doc(databaseInfo);
-
-            introDoc.DBRead(DocID, filePath);
-
-            System.out.println("End");
-        }
-        else{
-            System.out.println("Fail");
-        }
     }
 
     private void videotest(){

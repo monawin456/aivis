@@ -5,7 +5,7 @@ import java.sql.*;
 import aivis.database.DatabaseInfo;
 
 public class Evaluation {
-    public String Interview_Number;
+    public int Interview_Number;
     public int Eye;
     public int Face;
     public int Voice_Speed;
@@ -13,7 +13,7 @@ public class Evaluation {
     public DatabaseInfo databaseInfo;
 
     public Evaluation() {
-        this.Interview_Number = null;
+        this.Interview_Number = 0;
         this.Eye = 0;
         this.Face = 0;
         this.Voice_Speed = 0;
@@ -23,7 +23,7 @@ public class Evaluation {
     }
 
     public Evaluation(DatabaseInfo databaseInfo) {
-        this.Interview_Number = null;
+        this.Interview_Number = 0;
         this.Eye = 0;
         this.Face = 0;
         this.Voice_Speed = 0;
@@ -32,7 +32,7 @@ public class Evaluation {
         this.databaseInfo = databaseInfo;
     }
 
-    public Evaluation(String Interview_Number, int Eye, int Face, int Voice_Speed, int Voice_Tone) {
+    public Evaluation(int Interview_Number, int Eye, int Face, int Voice_Speed, int Voice_Tone) {
         this.Interview_Number = Interview_Number;
         this.Eye = Eye;
         this.Face = Face;
@@ -42,7 +42,7 @@ public class Evaluation {
         this.databaseInfo = null;
     }
 
-    public Evaluation(String Interview_Number, int Eye, int Face, int Voice_Speed, int Voice_Tone, DatabaseInfo databaseInfo) {
+    public Evaluation(int Interview_Number, int Eye, int Face, int Voice_Speed, int Voice_Tone, DatabaseInfo databaseInfo) {
         this.Interview_Number = Interview_Number;
         this.Eye = Eye;
         this.Face = Face;
@@ -58,7 +58,7 @@ public class Evaluation {
         PreparedStatement pStatement;
         pStatement = null;
 
-        if (Interview_Number != null && databaseInfo != null) {
+        if (Interview_Number != 0 && databaseInfo != null) {
             String sql;
             sql = "INSERT INTO Evaluation VALUES (?, ?, ?, ?, ?)";
 
@@ -68,7 +68,7 @@ public class Evaluation {
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
 
-                pStatement.setString(1, Interview_Number);
+                pStatement.setInt(1, Interview_Number);
                 pStatement.setInt(2, Eye);
                 pStatement.setInt(3, Face);
                 pStatement.setInt(4, Voice_Speed);
@@ -94,7 +94,7 @@ public class Evaluation {
         }
     }
 
-    public void DBRead(String Interview_Number) {
+    public void DBRead(int Interview_Number) {
         Connection connection;
         connection = null;
         PreparedStatement pStatement;
@@ -112,12 +112,12 @@ public class Evaluation {
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
 
-                pStatement.setString(1, Interview_Number);
+                pStatement.setInt(1, Interview_Number);
 
                 resultSet = pStatement.executeQuery();
 
                 resultSet.next();
-                this.Interview_Number = resultSet.getString("Interview_Number");
+                this.Interview_Number = resultSet.getInt("Interview_Number");
                 this.Eye = resultSet.getInt("Eye");
                 this.Face = resultSet.getInt("Face");
                 this.Voice_Speed = resultSet.getInt("Voice_Speed");
@@ -148,7 +148,7 @@ public class Evaluation {
         PreparedStatement pStatement;
         pStatement = null;
 
-        if (Interview_Number != null && databaseInfo != null) {
+        if (Interview_Number != 0 && databaseInfo != null) {
             String sql;
             sql =
             "UPDATE Evaluation SET "+
@@ -168,7 +168,7 @@ public class Evaluation {
                 pStatement.setInt(2, Face);
                 pStatement.setInt(3, Voice_Speed);
                 pStatement.setInt(4, Voice_Tone);
-                pStatement.setString(5, Interview_Number);
+                pStatement.setInt(5, Interview_Number);
 
                 pStatement.executeUpdate();
 
@@ -196,7 +196,7 @@ public class Evaluation {
         PreparedStatement pStatement;
         pStatement = null;
 
-        if(Interview_Number != null && databaseInfo != null) {
+        if(Interview_Number != 0 && databaseInfo != null) {
             String sql;
             sql = "DELETE Evaluation WHERE Interview_Number = ?";
 
@@ -206,9 +206,9 @@ public class Evaluation {
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
 
-                pStatement.setString(1, Interview_Number);
+                pStatement.setInt(1, Interview_Number);
 
-                Interview_Number = null;
+                Interview_Number = 0;
                 Eye = 0;
                 Face = 0;
                 Voice_Speed = 0;

@@ -62,22 +62,22 @@ CREATE TABLE `user_info` (
   `uID` varchar(20) CHARACTER SET utf8 NOT NULL,
   `Password` varchar(20) CHARACTER SET utf8 NOT NULL,
   `uName` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `uEmail` varchar(128) CHARACTER SET utf8 DEFAULT NULL,
+  `uEmail` varchar(128) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`uID`)
 );
 CREATE TABLE `Self_Intro_Doc` (
   `uID` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `DocID` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `Document` blob,
+  `DocID` int(11) AUTO_INCREMENT,
+  `Document` blob DEFAULT NULL,
   PRIMARY KEY (`DocID`),
   KEY `uID` (`uID`),
   CONSTRAINT `Self_Intro_Doc_ibfk_1` FOREIGN KEY (`uID`) REFERENCES `user_info` (`uID`)
 );
 CREATE TABLE `Interview` (
   `uID` varchar(20) CHARACTER SET utf8 NOT NULL,
-  `Interview_Number` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `Video` blob NOT NULL,
-  `DocID` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `Interview_Number` int(11) AUTO_INCREMENT,
+  `Video` blob DEFAULT NULL,
+  `DocID` int(11) NOT NULL,
   PRIMARY KEY (`Interview_Number`),
   KEY `uID` (`uID`),
   KEY `DocID` (`DocID`),
@@ -85,11 +85,11 @@ CREATE TABLE `Interview` (
   CONSTRAINT `Interview_ibfk_2` FOREIGN KEY (`DocID`) REFERENCES `Self_Intro_Doc` (`DocID`)
 );
 CREATE TABLE `Evaluation` (
-  `Interview_Number` varchar(128) CHARACTER SET utf8 NOT NULL,
-  `Eye` int(11) DEFAULT NULL,
-  `Face` int(11) DEFAULT NULL,
-  `Voice_Speed` int(11) DEFAULT NULL,
-  `Voice_Tone` int(11) DEFAULT NULL,
+  `Interview_Number` int(11) NOT NULL,
+  `Eye` int(11) NOT NULL,
+  `Face` int(11) NOT NULL,
+  `Voice_Speed` int(11) NOT NULL,
+  `Voice_Tone` int(11) NOT NULL,
   PRIMARY KEY (`Interview_Number`),
   CONSTRAINT `Evaluation_ibfk_1` FOREIGN KEY (`Interview_Number`) REFERENCES `Interview` (`Interview_Number`)
 );
