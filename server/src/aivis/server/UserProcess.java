@@ -46,12 +46,48 @@ public class UserProcess implements Runnable {
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             id = serverMain.userProcesses.indexOf(this);
-            while(true)
+
+            System.out.println("Wait Login");
+            String firstMsg = dis.readUTF();
+            if(firstMsg.compareTo("login") == 0){
+                String uID = dis.readUTF();
+                String Password = dis.readUTF();
+
+                user.DBRead(uID);
+
+                if(user.uID == null){
+                    dos.writeUTF("fail");
+                    dos.flush();
+                }
+                else{
+                    dos.writeUTF("valid");
+                    dos.flush();
+                }
+            }
+
+            while(user.uID != null)
             {
                 System.out.println("Wait Client's Request");
                 String msg = dis.readUTF();
 
                 System.out.println("Recieve Request: " + msg);
+
+                if(msg.compareTo("login") == 0){
+                    String uID = dis.readUTF();
+                    String Password = dis.readUTF();
+
+                    user.DBRead(uID);
+
+                    if(user.uID == null){
+                        dos.writeUTF("fail");
+                        dos.flush();
+                        break;
+                    }
+                    else{
+                        dos.writeUTF("valid");
+                        dos.flush();
+                    }
+                }
 
                 if(msg.compareTo("question") == 0){
                     System.out.println("Start Create Question");

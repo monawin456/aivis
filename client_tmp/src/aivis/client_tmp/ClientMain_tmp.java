@@ -23,20 +23,27 @@ public class ClientMain_tmp {
 
         try
         {
-            // print data.txt
-            System.out.println("Self Introduction Content:");
-            fileManager.printText("../data", "data.txt");
+            // wait time
+            System.out.println("If you want continue press any key");
+            scanner.nextLine();
+
+            // connect
+            System.out.println("Try to Connect Server");
+			socket = new Socket(serverAddress, port);
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
+            System.out.println("Connect success");
 
             // wait time
             System.out.println("If you want continue press any key");
             scanner.nextLine();
 
-            // upload data.txt
-            System.out.println("Try to Connect Server...");
-			socket = new Socket(serverAddress, port);
-            dis = new DataInputStream(socket.getInputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
-            System.out.println("Connect success");
+            // login
+            System.out.println("Try to login");
+            dos.writeUTF("login");
+            dos.writeUTF("admin");
+            dos.writeUTF("1234");
+            dos.flush();
 
             // wait time
             System.out.println("If you want continue press any key");

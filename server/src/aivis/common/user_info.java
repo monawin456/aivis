@@ -110,9 +110,9 @@ public class user_info {
 
                 resultSet.next();
                 this.uID = resultSet.getString("uID");
-                this.uID = resultSet.getString("Password");
-                this.uID = resultSet.getString("uName");
-                this.uID = resultSet.getString("uEmail");
+                this.Password = resultSet.getString("Password");
+                this.uName = resultSet.getString("uName");
+                this.uEmail = resultSet.getString("uEmail");
 
                 System.out.println("uID: " + uID);
                 System.out.println("uName: " + uName);
