@@ -7,12 +7,18 @@ import java.net.Socket;
 
 import aivis.common.FileManager;
 import aivis.machinelearning.*;
+import aivis.common.*;
 
 public class UserProcess implements Runnable {
     private Socket socket;
     private ServerMain serverMain;
     private FileManager fileManager;
     private int id;
+    
+    private user_info user;
+    private Self_Intro_Doc introDoc;
+    private Interview interview;
+    private Evaluation evaluation;
 
     public UserProcess(ServerMain serverMain, Socket socket) throws Exception
     {
