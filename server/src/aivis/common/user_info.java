@@ -1,54 +1,48 @@
 package aivis.common;
 
 import java.sql.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import aivis.database.DatabaseInfo;
 
-public class Interview {
+public class user_info {
     public String uID;
-    public String DocID;
-    public String Interview_Number;
-    public String Video;
+    public String Password;
+    public String uName;
+    public String uEmail;
     public DatabaseInfo databaseInfo;
 
-    public Interview() {
+    public user_info() {
         this.uID = null;
-        this.DocID = null;
-        this.Interview_Number = null;
-        this.Video = null;
+        this.Password = null;
+        this.uName = null;
+        this.uEmail = null;
 
         this.databaseInfo = null;
     }
 
-    public Interview(DatabaseInfo databaseInfo) {
+    public user_info(DatabaseInfo databaseInfo) {
         this.uID = null;
-        this.DocID = null;
-        this.Interview_Number = null;
-        this.Video = null;
+        this.Password = null;
+        this.uName = null;
+        this.uEmail = null;
 
         this.databaseInfo = databaseInfo;
     }
 
-    public Interview(String uID, String DocID, String Interview_Number, String filePath) {
+    public user_info(String uID, String Password, String uName, String uEmail) {
         this.uID = uID;
-        this.DocID = DocID;
-        this.Interview_Number = Interview_Number;
-        this.Video = filePath;
+        this.Password = Password;
+        this.uName = uName;
+        this.uEmail = uEmail;
 
         this.databaseInfo = null;
     }
 
-    public Interview(String uID, String DocID, String Interview_Number, String filePath, DatabaseInfo databaseInfo) {
+    public user_info(String uID, String Password, String uName, String uEmail, DatabaseInfo databaseInfo) {
         this.uID = uID;
-        this.DocID = DocID;
-        this.Interview_Number = Interview_Number;
-        this.Video = filePath;
+        this.Password = Password;
+        this.uName = uName;
+        this.uEmail = uEmail;
 
         this.databaseInfo = databaseInfo;
     }
@@ -58,40 +52,31 @@ public class Interview {
         connection = null;
         PreparedStatement pStatement;
         pStatement = null;
-        File file;
-        file = null;
-        FileInputStream fis;
-        fis = null;
 
-        if (Interview_Number != null && databaseInfo != null) {
+        if (uID != null && databaseInfo != null) {
             String sql;
-            sql = "INSERT INTO Interview VALUES (?, ?, ?, ?)";
+            sql = "INSERT INTO User_Info VALUES (?, ?, ?, ?)";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
                 connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
-                file = new File(Video);
-                fis = new FileInputStream(file);
 
                 pStatement.setString(1, uID);
-                pStatement.setString(2, DocID);
-                pStatement.setString(3, Interview_Number);
-                pStatement.setBinaryStream(4, fis);
+                pStatement.setString(2, Password);
+                pStatement.setString(3, uName);
+                pStatement.setString(4, uEmail);
 
                 pStatement.executeUpdate();
 
                 System.out.println("uID: " + uID);
-                System.out.println("DocID: " + DocID);
-                System.out.println("Interview_Number: " + Interview_Number);
+                System.out.println("uName: " + uName);
+                System.out.println("uEmail: " + uEmail);
             } catch (SQLException e) {
                 System.out.println("DB Connection failed");
                 e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } finally {
-                try { fis.close(); } catch (IOException e) { e.printStackTrace(); }
                 try { pStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
                 try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
@@ -101,60 +86,42 @@ public class Interview {
         }
     }
 
-    public void DBRead(String Interview_Number, String filePath) {
+    public void DBRead(String uID) {
         Connection connection;
         connection = null;
         PreparedStatement pStatement;
         pStatement = null;
-        File file;
-        file = null;
-        FileOutputStream fos;
-        fos = null;
         ResultSet resultSet;
         resultSet = null;
-        InputStream input;
-        input = null;
 
         if (databaseInfo != null) {
             String sql;
-            sql = "SELECT * FROM Interview WHERE Interview_Number = ?";
+            sql = "SELECT * FROM User_Info WHERE uID = ?";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
                 connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
-                this.Video = filePath;
-                file = new File(Video);
-                fos = new FileOutputStream(file);
 
-                pStatement.setString(1, Interview_Number);
+                pStatement.setString(1, uID);
 
                 resultSet = pStatement.executeQuery();
 
                 resultSet.next();
                 this.uID = resultSet.getString("uID");
-                this.DocID = resultSet.getString("DocID");
-                this.Interview_Number = resultSet.getString("Interview_Number");
-                input = resultSet.getBinaryStream("Video");
-                byte[] buffer = new byte[1024];
-                while (input.read(buffer) > 0) {
-                    fos.write(buffer);
-                }
+                this.uID = resultSet.getString("Password");
+                this.uID = resultSet.getString("uName");
+                this.uID = resultSet.getString("uEmail");
+
                 System.out.println("uID: " + uID);
-                System.out.println("DocID: " + DocID);
-                System.out.println("Interview_Number: " + Interview_Number);
+                System.out.println("uName: " + uName);
+                System.out.println("uEmail: " + uEmail);
             } catch (SQLException e) {
                 System.out.println("DB Connection failed");
                 e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             } finally {
-                try { input.close(); } catch (IOException e) { e.printStackTrace(); }
                 try { resultSet.close(); } catch (SQLException e) { e.printStackTrace(); }
-                try { fos.close(); } catch (IOException e) { e.printStackTrace(); }
                 try { pStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
                 try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
@@ -169,45 +136,36 @@ public class Interview {
         connection = null;
         PreparedStatement pStatement;
         pStatement = null;
-        File file;
-        file = null;
-        FileInputStream fis;
-        fis = null;
 
-        if (Interview_Number != null && databaseInfo != null) {
+        if (uID != null && databaseInfo != null) {
             String sql;
             sql =
-            "UPDATE Interview SET "+
-            "uID = ?, "+
-            "DocID = ?, "+
-            "Video = ?, "+
-            "WHERE Interview_Number = ?";
+            "UPDATE User_Info SET "+
+            "Password = ?, "+
+            "uName = ?, "+
+            "uEmail = ?, "+
+            "WHERE uID = ?";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
                 connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
-                file = new File(Video);
-                fis = new FileInputStream(file);
 
-                pStatement.setString(1, uID);
-                pStatement.setString(2, DocID);
-                pStatement.setBinaryStream(3, fis);
-                pStatement.setString(4, Interview_Number);
+                pStatement.setString(1, Password);
+                pStatement.setString(2, uName);
+                pStatement.setString(3, uEmail);
+                pStatement.setString(4, uID);
 
                 pStatement.executeUpdate();
 
                 System.out.println("uID: " + uID);
-                System.out.println("DocID: " + DocID);
-                System.out.println("Interview_Number: " + Interview_Number);
+                System.out.println("uName: " + uName);
+                System.out.println("uEmail: " + uEmail);
             } catch (SQLException e) {
                 System.out.println("DB Connection failed");
                 e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } finally {
-                try { fis.close(); } catch (IOException e) { e.printStackTrace(); }
                 try { pStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
                 try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
@@ -223,9 +181,9 @@ public class Interview {
         PreparedStatement pStatement;
         pStatement = null;
 
-        if(Interview_Number != null && databaseInfo != null) {
+        if(uID != null && databaseInfo != null) {
             String sql;
-            sql = "DELETE Interview WHERE Interview_Number = ?";
+            sql = "DELETE User_Info WHERE uID = ?";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
@@ -233,12 +191,12 @@ public class Interview {
                 //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
 
-                pStatement.setString(1, Interview_Number);
+                pStatement.setString(1, uID);
 
                 uID = null;
-                DocID = null;
-                Interview_Number = null;
-                Video = null;
+                Password = null;
+                uName = null;
+                uEmail = null;
 
                 System.out.println("Deleted");
             } catch (SQLException e) {

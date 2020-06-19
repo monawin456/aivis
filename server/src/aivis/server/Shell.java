@@ -1,10 +1,11 @@
 package aivis.server;
 
 import java.util.Scanner;
+import javafx.scene.chart.PieChart.Data;
 
 import aivis.machinelearning.*;
+import aivis.common.*;
 import aivis.database.DatabaseInfo;
-import aivis.common.User;
 
 public class Shell implements Runnable{
     private ServerMain serverMain;
@@ -75,24 +76,29 @@ public class Shell implements Runnable{
     private void dbtest(){
         System.out.println("Start");
 
-        String hostname = "";
-        String port = "";
-        String dbName = "";
-        String userName = "";
-        String password = "";
+        String hostname = "localhost";
+        String port = "3306";
+        String dbName = "aivis";
+        String userName = "admin";
+        String password = "1+1=mysql";
 
+        //DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
         DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
 
-        String uID = "0001";
-        String Password = "1111";
-        String uName = "tester01";
-        String uEmail = "tester01@abc.d";
+        if(databaseInfo.jdbcUrl != null){
+            //String uID = "0001";
+            String DocID = "0001";
+            String filePath = "../data/data.txt";
 
-        User testUser = new User(uID, Password, uName, uEmail, databaseInfo);
+            Self_Intro_Doc introDoc = new Self_Intro_Doc(databaseInfo);
 
-        testUser.DBInsert();
+            introDoc.DBRead(DocID, filePath);
 
-        System.out.println("End");
+            System.out.println("End");
+        }
+        else{
+            System.out.println("Fail");
+        }
     }
 
     private void videotest(){

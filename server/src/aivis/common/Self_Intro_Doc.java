@@ -10,29 +10,37 @@ import java.io.InputStream;
 
 import aivis.database.DatabaseInfo;
 
-public class SelfIntroDoc {
+public class Self_Intro_Doc {
     public String uID;
     public String DocID;
     public String Document;
     public DatabaseInfo databaseInfo;
 
-    public SelfIntroDoc() {
-        uID = null;
-        DocID = null;
-        Document = null;
+    public Self_Intro_Doc() {
+        this.uID = null;
+        this.DocID = null;
+        this.Document = null;
 
-        databaseInfo = null;
+        this.databaseInfo = null;
     }
 
-    public SelfIntroDoc(String uID, String DocID, String filePath) {
+    public Self_Intro_Doc(DatabaseInfo databaseInfo) {
+        this.uID = null;
+        this.DocID = null;
+        this.Document = null;
+
+        this.databaseInfo = databaseInfo;
+    }
+
+    public Self_Intro_Doc(String uID, String DocID, String filePath) {
         this.uID = uID;
         this.DocID = DocID;
         this.Document = filePath;
 
-        databaseInfo = null;
+        this.databaseInfo = null;
     }
 
-    public SelfIntroDoc(String uID, String DocID, String filePath, DatabaseInfo databaseInfo) {
+    public Self_Intro_Doc(String uID, String DocID, String filePath, DatabaseInfo databaseInfo) {
         this.uID = uID;
         this.DocID = DocID;
         this.Document = filePath;
@@ -52,11 +60,12 @@ public class SelfIntroDoc {
 
         if (DocID != null && databaseInfo != null) {
             String sql;
-            sql = "INSERT INTO SelfIntroDoc VALUES (?, ?, ?)";
+            sql = "INSERT INTO Self_Intro_Doc VALUES (?, ?, ?)";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
-                connection = DriverManager.getConnection(databaseInfo.connectionString);
+                connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
+                //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
                 file = new File(Document);
                 fis = new FileInputStream(file);
@@ -85,7 +94,7 @@ public class SelfIntroDoc {
         }
     }
 
-    public void DBRead(String DocID) {
+    public void DBRead(String DocID, String filePath) {
         Connection connection;
         connection = null;
         PreparedStatement pStatement;
@@ -101,12 +110,14 @@ public class SelfIntroDoc {
 
         if (databaseInfo != null) {
             String sql;
-            sql = "SELECT * FROM SelfIntroDoc WHERE DocID = ?";
+            sql = "SELECT * FROM Self_Intro_Doc WHERE DocID = ?";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
-                connection = DriverManager.getConnection(databaseInfo.connectionString);
+                connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
+                //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
+                this.Document = filePath;
                 file = new File(Document);
                 fos = new FileOutputStream(file);
 
@@ -157,14 +168,15 @@ public class SelfIntroDoc {
         if (DocID != null && databaseInfo != null) {
             String sql;
             sql =
-            "UPDATE SelfIntroDoc SET "+
+            "UPDATE Self_Intro_Doc SET "+
             "uID = ?, "+
             "Document = ?, "+
             "WHERE DocID = ?";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
-                connection = DriverManager.getConnection(databaseInfo.connectionString);
+                connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
+                //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
                 pStatement = connection.prepareStatement(sql);
                 file = new File(Document);
                 fis = new FileInputStream(file);
@@ -196,32 +208,31 @@ public class SelfIntroDoc {
     public void DBDelete() {
         Connection connection;
         connection = null;
-        Statement statement;
-        statement = null;
-        ResultSet resultSet;
-        resultSet = null;
+        PreparedStatement pStatement;
+        pStatement = null;
 
         if(DocID != null && databaseInfo != null) {
             String sql;
-            sql = "DELETE SelfIntroDoc WHERE DocID = '"+DocID+"';";
+            sql = "DELETE Self_Intro_Doc WHERE DocID = ?";
 
             try {
                 //connection = DriverManager.getConnection(databaseInfo.DB_URL, databaseInfo.USER_NAME, databaseInfo.USER_PASSWORD);
-                connection = DriverManager.getConnection(databaseInfo.connectionString);
-                statement = connection.createStatement();
-                resultSet = statement.executeQuery(sql);
+                connection = DriverManager.getConnection(databaseInfo.jdbcUrl, databaseInfo.userName, databaseInfo.password);
+                //connection = DriverManager.getConnection(databaseInfo.url, databaseInfo.userName, databaseInfo.password);
+                pStatement = connection.prepareStatement(sql);
+
+                pStatement.setString(1, DocID);
 
                 uID = null;
                 DocID = null;
                 Document = null;
 
-                System.out.println(DocID+"(DocID) is Deleted");
+                System.out.println("Deleted");
             } catch (SQLException e) {
                 System.out.println("DB Connection failed");
                 e.printStackTrace();
             } finally {
-                try { resultSet.close(); } catch (SQLException e) { e.printStackTrace(); }
-                try { statement.close(); } catch (SQLException e) { e.printStackTrace(); }
+                try { pStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
                 try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
         }
