@@ -82,11 +82,9 @@ public class Shell implements Runnable{
         String userName = "admin";
         String password = "1+1=mysql";
 
-        //DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
         DatabaseInfo databaseInfo = new DatabaseInfo(hostname, port, dbName, userName, password);
 
         if(databaseInfo.jdbcUrl != null){
-            //String uID = "0001";
             String DocID = "0001";
             String filePath = "../data/data.txt";
 

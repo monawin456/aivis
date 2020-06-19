@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import aivis.common.FileManager;
 import aivis.machinelearning.*;
+import aivis.database.DatabaseInfo;
 import aivis.common.*;
 
 public class UserProcess implements Runnable {
@@ -14,17 +15,26 @@ public class UserProcess implements Runnable {
     private ServerMain serverMain;
     private FileManager fileManager;
     private int id;
+
+    private DatabaseInfo databaseInfo;
     
     private user_info user;
     private Self_Intro_Doc introDoc;
     private Interview interview;
     private Evaluation evaluation;
 
-    public UserProcess(ServerMain serverMain, Socket socket) throws Exception
+    public UserProcess(ServerMain serverMain, Socket socket, DatabaseInfo databaseInfo) throws Exception
     {
         this.serverMain = serverMain;
         this.socket = socket;
         fileManager = new FileManager();
+
+        this.databaseInfo = new DatabaseInfo(databaseInfo.hostname, databaseInfo.port, databaseInfo.dbName, databaseInfo.userName, databaseInfo.password);
+
+        user = new user_info(this.databaseInfo);
+        introDoc = new Self_Intro_Doc(this.databaseInfo);
+        interview = new Interview(this.databaseInfo);
+        evaluation = new Evaluation(this.databaseInfo);
     }
 
     public void run()

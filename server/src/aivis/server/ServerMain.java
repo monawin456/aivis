@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.Stack;
 
+import aivis.database.DatabaseInfo;
+
 public class ServerMain {
     public ServerMain serverMain;
     public int numUserProcess;
@@ -44,9 +46,14 @@ public class ServerMain {
         while (true) {
             if (serverMain.userProcesses.size() < serverMain.maxNumUserProcess) {
                 try {
-                    //serverMain.userProcesses[serverMain.numUserProcess] = new Thread(new UserProcess(serverMain, serverMain.serverSocket.accept()));
-                    //serverMain.userProcesses[serverMain.numUserProcess].start();
-                    serverMain.userProcesses.push(new UserProcess(serverMain, serverMain.serverSocket.accept()));
+                    String hostname = "localhost";
+                    String dbPort = "3306";
+                    String dbName = "aivis";
+                    String userName = "admin";
+                    String password = "1+1=mysql";
+                    DatabaseInfo databaseInfo = new DatabaseInfo(hostname, dbPort, dbName, userName, password);
+
+                    serverMain.userProcesses.push(new UserProcess(serverMain, serverMain.serverSocket.accept(), databaseInfo));
                     new Thread(serverMain.userProcesses.peek()).start();
                     System.out.println("Someone Connect to Server");
                 } catch (IOException e) {
