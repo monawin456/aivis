@@ -80,12 +80,16 @@ public class UserProcess implements Runnable {
 
                     eyeChecker.excute();
                     emotionChecker.excute();
-
+                    fileManager.send(dos, "../data", "eye.txt");
+                    fileManager.send(dos, "../data", "emotion.txt");
                     System.out.println("End Video Analysis");
                 }
                 else if(msg.compareTo("upload") == 0){
                     System.out.println("Recieve Self Introduction Document Data");
                     fileManager.recieve(dis, "../data", "data.txt");
+                    introDoc.uID = user.uID;
+                    introDoc.Document = "../data/data.txt".
+                    introDoc.DBInsert();
                 }
             }
         } catch(Exception e) {
