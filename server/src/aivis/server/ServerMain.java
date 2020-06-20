@@ -19,7 +19,7 @@ public class ServerMain {
 
     public ServerMain() {
         port = 8888;
-        maxNumUserProcess = 2;
+        maxNumUserProcess = 20;
         psUsed = new int[maxNumUserProcess];
         for(int i = 0; i < maxNumUserProcess; i++){
             psUsed[i] = 0;
