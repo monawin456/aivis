@@ -83,6 +83,8 @@ public class ClientMain_tmp {
 			System.out.println("Send Request: video");
 			dos.writeUTF("video");
             dos.flush();
+            System.out.println("Send Video");
+            fileManager.send(dos, "../data", "video.mp4");
             System.out.println("Recieve Evaluation");
             fileManager.recieve(dis, "../data", "eye.txt");
             fileManager.recieve(dis, "../data", "emotion.txt");

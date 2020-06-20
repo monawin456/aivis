@@ -95,10 +95,11 @@ public class UserProcess implements Runnable {
                 }
                 else if(msg.compareTo("video") == 0){
                     System.out.println("Start Video Analysis");
+                    fileManager.recieve(dis, "../data", "video.mp4");
 
+                    System.out.println("Start Video Analysis");
                     EyeChecker eyeChecker = new EyeChecker();
                     EmotionChecker emotionChecker = new EmotionChecker();
-
                     eyeChecker.excute();
                     emotionChecker.excute();
                     fileManager.send(dos, "../data", "eye.txt");
