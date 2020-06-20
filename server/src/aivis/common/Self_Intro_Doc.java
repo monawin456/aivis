@@ -58,7 +58,7 @@ public class Self_Intro_Doc {
         FileInputStream fis;
         fis = null;
 
-        if (DocID != 0 && databaseInfo != null) {
+        if (databaseInfo != null) {
             String sql;
             sql = "INSERT INTO Self_Intro_Doc(uID, Document) VALUES (?, ?)";
 
