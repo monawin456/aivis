@@ -1,5 +1,7 @@
 from statistics import mode
 
+import sys
+
 import cv2
 from keras.models import load_model
 import numpy as np
@@ -33,7 +35,8 @@ emotion_window = []
 
 # starting video streaming
 # cv2.namedWindow('window_frame')
-video_capture = cv2.VideoCapture("../data/video.mp4")
+#video_capture = cv2.VideoCapture("../data/video.mp4")
+video_capture = cv2.VideoCapture("../data/video"+sys.argv[1]+".mp4")
 
 emotion_count = [0, 0, 0, 0, 0, 0, 0, 0]
 # 0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy',
@@ -128,7 +131,8 @@ bad_emotion = emotion_count[0] + emotion_count[1] + emotion_count[2] + emotion_c
 
 emotion_ratio = bad_emotion / emotion_sum * 100
 
-f = open("../data/" + "emotion.txt", 'w')
+#f = open("../data/" + "emotion.txt", 'w')
+f = open("../data/" + "emotion"+sys.argv[1]+".txt", 'w')
 print(emotion_ratio)
 if (emotion_ratio >= 0) and (emotion_ratio < 25):
     f.write("good")

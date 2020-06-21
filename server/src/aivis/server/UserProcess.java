@@ -95,15 +95,33 @@ public class UserProcess implements Runnable {
                 }
                 else if(msg.compareTo("video") == 0){
                     System.out.println("Start Video Analysis");
-                    fileManager.recieve(dis, "../data", "video.mp4");
 
+                    // recieve video
+                    fileManager.recieve(dis, "../data", "video1.mp4");
+                    fileManager.recieve(dis, "../data", "video2.mp4");
+                    fileManager.recieve(dis, "../data", "video3.mp4");
+                    fileManager.recieve(dis, "../data", "video4.mp4");
+                    fileManager.recieve(dis, "../data", "video5.mp4");
+
+                    // video analysis
                     System.out.println("Start Video Analysis");
                     EyeChecker eyeChecker = new EyeChecker();
                     EmotionChecker emotionChecker = new EmotionChecker();
                     eyeChecker.excute();
                     emotionChecker.excute();
-                    fileManager.send(dos, "../data", "eye.txt");
-                    fileManager.send(dos, "../data", "emotion.txt");
+
+                    // send result
+                    fileManager.send(dos, "../data", "eye1.txt");
+                    fileManager.send(dos, "../data", "emotion1.txt");
+                    fileManager.send(dos, "../data", "eye2.txt");
+                    fileManager.send(dos, "../data", "emotion2.txt");
+                    fileManager.send(dos, "../data", "eye3.txt");
+                    fileManager.send(dos, "../data", "emotion3.txt");
+                    fileManager.send(dos, "../data", "eye4.txt");
+                    fileManager.send(dos, "../data", "emotion4.txt");
+                    fileManager.send(dos, "../data", "eye5.txt");
+                    fileManager.send(dos, "../data", "emotion5.txt");
+
                     System.out.println("End Video Analysis");
                 }
                 else if(msg.compareTo("upload") == 0){

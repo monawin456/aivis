@@ -5,7 +5,8 @@ import sys
 from math import hypot
 
 #동영상 이름
-cap = cv2.VideoCapture("../data/video.mp4")
+#cap = cv2.VideoCapture("../data/video.mp4")
+cap = cv2.VideoCapture("../data/video"+sys.argv[1]+".mp4")
 Vf = cap.get(cv2.CAP_PROP_FRAME_COUNT)
 fps = cap.get(cv2.CAP_PROP_FPS)
 Vlength = Vf/ fps
@@ -140,7 +141,8 @@ no_center = no_center / fps
 Vrank = no_center / Vlength
 temp = sys.argv
 
-f = open("../data/" + "eye.txt", 'w')
+#f = open("../data/" + "eye.txt", 'w')
+f = open("../data/" + "eye"+sys.argv[1]+".txt", 'w')
 if Vrank > 0.5:
     f.write("bad")
     print("bad")

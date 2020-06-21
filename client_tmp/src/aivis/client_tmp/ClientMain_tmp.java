@@ -84,10 +84,22 @@ public class ClientMain_tmp {
 			dos.writeUTF("video");
             dos.flush();
             System.out.println("Send Video");
-            fileManager.send(dos, "../data", "video.mp4");
+            fileManager.send(dos, "../data", "video1.mp4");
+            fileManager.send(dos, "../data", "video2.mp4");
+            fileManager.send(dos, "../data", "video3.mp4");
+            fileManager.send(dos, "../data", "video4.mp4");
+            fileManager.send(dos, "../data", "video5.mp4");
             System.out.println("Recieve Evaluation");
-            fileManager.recieve(dis, "../data", "eye.txt");
-            fileManager.recieve(dis, "../data", "emotion.txt");
+            fileManager.recieve(dis, "../data", "eye1.txt");
+            fileManager.recieve(dis, "../data", "emotion1.txt");
+            fileManager.recieve(dis, "../data", "eye2.txt");
+            fileManager.recieve(dis, "../data", "emotion2.txt");
+            fileManager.recieve(dis, "../data", "eye3.txt");
+            fileManager.recieve(dis, "../data", "emotion3.txt");
+            fileManager.recieve(dis, "../data", "eye4.txt");
+            fileManager.recieve(dis, "../data", "emotion4.txt");
+            fileManager.recieve(dis, "../data", "eye5.txt");
+            fileManager.recieve(dis, "../data", "emotion5.txt");
         }catch(Exception e) {
             System.out.println("socket error occure");
             e.printStackTrace();
