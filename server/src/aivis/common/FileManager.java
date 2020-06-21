@@ -28,18 +28,25 @@ public class FileManager{
             bos = new BufferedOutputStream(fos);
 
             // 파일 수신 시작
+            long total = 0;
+            total = dis.readLong();
             int len = 0;
             int size = 4096;
             byte[] data = new byte[size];
-            while (true) {
-                len = dis.readInt();
-                System.out.println("number of bytes: " + len);
-                if(len == -1){
-                    break;
-                }
-                else{
-                    dis.read(data, 0, len);
-                    bos.write(data, 0, len);
+            if(total < size){
+                dis.read(data, 0, (int)total);
+                bos.write(data, 0, (int)total);
+            }
+            else{
+                while (true) {
+                    System.out.println("number of bytes: ????");
+                    len = len + dis.read(data, 0, size);
+                    bos.write(data, 0, size);
+                    if((int)(total - len) < size){
+                        dis.read(data, 0, (int)(total - len));
+                        bos.write(data, 0, (int)(total - len));
+                        break;
+                    }
                 }
             }
             bos.flush();
@@ -73,17 +80,19 @@ public class FileManager{
             bis = new BufferedInputStream(fis);
 
             // 파일 전송 시작
-            int len = 0;
+            long total = 0;
+            total = file.length();
+            dos.writeLong(total);
             int size = 4096;
+            int len = 0;
             byte[] data = new byte[size];
             while (true) {
                 len = bis.read(data);
                 System.out.println("number of bytes: " + len);
                 if(len == -1){
-                    dos.writeInt(len);
+                    //dos.writeInt(len);
                     break;
                 }else{
-                    dos.writeInt(len);
                     dos.write(data, 0, len);
                 }
             }
