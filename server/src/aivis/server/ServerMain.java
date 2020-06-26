@@ -50,7 +50,7 @@ public class ServerMain {
                     String dbPort = "3306";
                     String dbName = "aivis";
                     String userName = "admin";
-                    String password = "1+1=mysql";
+                    String password = "password";
                     DatabaseInfo databaseInfo = new DatabaseInfo(hostname, dbPort, dbName, userName, password);
 
                     serverMain.userProcesses.push(new UserProcess(serverMain, serverMain.serverSocket.accept(), databaseInfo));
